@@ -7,6 +7,10 @@
 #include <event2/util.h>
 #include <event2/event.h>
 
+#ifdef WIN32
+#include <WinSock2.h>
+#endif
+
 const int PORT = 9995;
 const int BUFFER_SIZE = 1024;
 
@@ -19,7 +23,7 @@ int main()
 {
     printf("I am client\n");
 #ifdef WIN32
-    WSAData wsaData;
+    struct WSAData wsaData;
     WSAStartup(MAKEWORD(2, 0), &wsaData);
 #endif
     struct sockaddr_in srv;
@@ -85,7 +89,7 @@ void conn_readcb(struct bufferevent *bev, void *user_data)
     size_t sz=evbuffer_get_length(input);
     if (sz > 0)
     {
-        char msg[BUFFER_SIZE] = {'\0'};
+        char msg[1024] = {0};
         bufferevent_read(bev, msg, sz);
         printf("%s\n", msg);
     }

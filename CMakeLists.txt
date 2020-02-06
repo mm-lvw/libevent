@@ -43,7 +43,7 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Limited configuratio
 
 set(EVENT__LIBRARY_TYPE DEFAULT CACHE STRING
     "Set library type to SHARED/STATIC/BOTH (default SHARED for MSVC, otherwise BOTH)")
-set(EVENT__LIBRARY_TYPE BOTH)
+set(EVENT__LIBRARY_TYPE STATIC)
 
 project(libevent C)
 
@@ -818,7 +818,7 @@ endif()
 if(EVENT__HAVE_EVENT_PORTS)
     list(APPEND SRC_CORE evport.c)
 endif()
-
+SET(EVENT__DISABLE_OPENSSL ON)
 if (NOT EVENT__DISABLE_OPENSSL)
     find_package(OpenSSL REQUIRED)
 
