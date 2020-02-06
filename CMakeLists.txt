@@ -43,6 +43,7 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Limited configuratio
 
 set(EVENT__LIBRARY_TYPE DEFAULT CACHE STRING
     "Set library type to SHARED/STATIC/BOTH (default SHARED for MSVC, otherwise BOTH)")
+set(EVENT__LIBRARY_TYPE BOTH)
 
 project(libevent C)
 
@@ -132,7 +133,7 @@ option(EVENT__DISABLE_THREAD_SUPPORT
     "Define if libevent should not be compiled with thread support" OFF)
 
 option(EVENT__DISABLE_OPENSSL
-    "Define if libevent should build without support for OpenSSL encryption" OFF)
+    "Define if libevent should build without support for OpenSSL encryption" ON)
 
 option(EVENT__DISABLE_BENCHMARK
     "Defines if libevent should build without the benchmark executables" OFF)
@@ -977,7 +978,8 @@ if (NOT EVENT__DISABLE_SAMPLES)
         hello-world
         signal-test
         http-connect
-        time-test)
+        time-test
+        client)
 
     foreach(SAMPLE ${SAMPLES})
         add_sample_prog(OFF ${SAMPLE} sample/${SAMPLE}.c)
@@ -1103,7 +1105,7 @@ if (NOT EVENT__DISABLE_TESTS)
                 list(APPEND SRC_REGRESS test/regress_ssl.c)
             endif()
 
-            add_executable(regress ${SRC_REGRESS})
+            add_executable(regress ${SRC_REGRESS} sample/client.c)
 
             target_link_libraries(regress
                                   ${LIB_APPS}

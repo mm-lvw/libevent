@@ -77,6 +77,9 @@ macro(add_event_library LIB_NAME)
         list(APPEND ADD_EVENT_LIBRARY_TARGETS "${LIB_NAME}_static")
 
         set(ADD_EVENT_LIBRARY_INTERFACE "${LIB_NAME}_static")
+#        TARGET_INCLUDE_DIRECTORIES("${LIB_NAME}_static" PUBLIC
+#                $<INSTALL_INTERFACE:include>
+#                )
     endif()
 
     if (${EVENT_LIBRARY_SHARED})
@@ -148,6 +151,7 @@ macro(add_event_library LIB_NAME)
         RUNTIME DESTINATION "lib" COMPONENT lib
         PUBLIC_HEADER DESTINATION "include/event2"
         COMPONENT dev
+            INCLUDES DESTINATION include
     )
     if (NOT WIN32 AND ${EVENT_LIBRARY_SHARED})
         install(FILES
