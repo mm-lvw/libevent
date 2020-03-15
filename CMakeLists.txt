@@ -979,7 +979,7 @@ if (NOT EVENT__DISABLE_SAMPLES)
         signal-test
         http-connect
         time-test
-        client)
+        hello-world-client)
 
     foreach(SAMPLE ${SAMPLES})
         add_sample_prog(OFF ${SAMPLE} sample/${SAMPLE}.c)
@@ -1105,7 +1105,7 @@ if (NOT EVENT__DISABLE_TESTS)
                 list(APPEND SRC_REGRESS test/regress_ssl.c)
             endif()
 
-            add_executable(regress ${SRC_REGRESS} sample/client.c)
+            add_executable(regress ${SRC_REGRESS} sample/hello-world-client.c)
 
             target_link_libraries(regress
                                   ${LIB_APPS}

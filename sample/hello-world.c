@@ -57,6 +57,7 @@ main(int argc, char **argv)
 	memset(&sin, 0, sizeof(sin));
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(PORT);
+	sin.sin_addr.s_addr = inet_addr("0.0.0.0");
 
 	listener = evconnlistener_new_bind(base, listener_cb, (void *)base,
 	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
@@ -100,7 +101,7 @@ listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
 	}
 	bufferevent_setcb(bev, NULL, conn_writecb, conn_eventcb, NULL);
 	bufferevent_enable(bev, EV_WRITE);
-	bufferevent_disable(bev, EV_READ);
+	bufferevent_enable(bev, EV_READ);
 
 	bufferevent_write(bev, MESSAGE, strlen(MESSAGE));
 }

@@ -28,7 +28,7 @@ int main()
 #endif
     struct sockaddr_in srv;
     memset(&srv, 0, sizeof(srv));
-    srv.sin_addr.s_addr = inet_addr("172.0.0.1");
+    srv.sin_addr.s_addr = inet_addr("127.0.0.1");
     //srv.sin_addr.s_addr = inet_addr("192.168.1.106");
     srv.sin_family = AF_INET;
     srv.sin_port = htons(PORT);
